@@ -11,6 +11,7 @@ var gulp     = require('gulp');
 var rimraf   = require('rimraf');
 var router   = require('front-router');
 var sequence = require('run-sequence');
+var imagemin = require('gulp-imagemin');
 
 // Check for --production flag
 var isProduction = !!(argv.production);
@@ -176,9 +177,19 @@ gulp.task('server', ['build'], function() {
   ;
 });
 
+//minify images
+gulp.task('imagemin', function(){
+  gulp.src('./client/assets/images/*')
+  .pipe(imagemin({
+    progressive: true,
+    multipass: true
+  }))
+  .pipe(gulp.dest('./build/assets/images/'));
+})
+
 // Builds your entire app once, without starting a server
 gulp.task('build', function(cb) {
-  sequence('clean', ['copy', 'copy:foundation', 'sass', 'uglify'], 'copy:templates', cb);
+  sequence('clean', ['imagemin', 'copy', 'copy:foundation', 'sass', 'uglify'], 'copy:templates', cb);
 });
 
 // Default task: builds your app, starts a server, and recompiles assets when they change

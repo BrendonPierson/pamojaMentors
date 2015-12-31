@@ -4,19 +4,25 @@
   angular.module('application')
     .controller('ParticipantCtrl', ParticipantCtrl);
 
-  ParticipantCtrl.$inject = ["FBREF", "$stateParams", "FoundationApi"];
+  ParticipantCtrl.$inject = ["$http", "FBREF", "$stateParams", "FoundationApi"];
 
-  function ParticipantCtrl(FBREF, $stateParams, foundationApi) {
+  function ParticipantCtrl($http, FBREF, $stateParams, foundationApi) {
     var vm = this;
 
     console.log($stateParams.id);
 
     var ref = new Firebase(FBREF);
 
-    ref.child('participants').orderByChild('uid').equalTo($stateParams.id).limitToFirst(1).on('value', function(snapshot) {
-      vm.participant = snapshot.val()[0];
-      console.log(vm.participant);
-    });
+    $http.get(FBREF + "/participants/" + $stateParams.id + '/.json').then(success, failure);
+
+    function success (response) {
+      console.log(response.data);
+      vm.participant = response.data;
+    }
+
+    function failure (err) {
+      console.log(err);
+    }
 
     vm.goToPaypal = function() {
       console.log("go to goToPaypal fired");

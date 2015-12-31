@@ -10,7 +10,7 @@
     var vm = this;
     var ref = new Firebase(FBREF);
 
-    vm.participants = $firebaseArray(ref.child('participants'));
+    vm.participants = $firebaseArray(ref.child('participants').orderByChild('isActive').equalTo(true));
     vm.participants.$loaded().then(function() {
       console.log("fbarray", vm.participants);
     });
