@@ -1,0 +1,9 @@
+{
+  "firebase": "pamoja",
+  "public": "build",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}

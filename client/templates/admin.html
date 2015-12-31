@@ -1,0 +1,63 @@
+<div class="grid-frame">
+  <div class="grid-block">
+
+    <div class="grid-content">
+      <h1 class="title-text"> Admin</h1>
+      <h3>Click on participant to edit</h3>
+      <a zf-open="basicModal" class="button">Add Participant</a>
+    </div>
+    <div class="grid-block" ng-repeat="participant in vm.participants">
+      <a class="" ui-sref="participantEdit({ id: participant.uid })">
+        <div>
+          <h2>{{ participant.fName }} {{ participant.lName }}</h2>
+          <img ng-src="{{ participant.imageUrl }}" width="200">
+        </div>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<div zf-modal="" id="basicModal">
+  <a zf-close="" class="close-button">×</a>
+  <div class="grid-block">
+    <div class="grid-content medium-12 align-center">
+      <label>
+         Image Url:
+         <input type="text" name="Image Url" ng-model="vm.newParticipant.imageUrl">
+      </label>
+      <label>
+         First name:
+         <input type="text" name="First Name" ng-model="vm.newParticipant.fName">
+      </label>
+      <label>
+         Last name:
+         <input type="text" name="Last Name" ng-model="vm.newParticipant.lName">
+      </label>
+      <label>
+         School:
+         <input type="text" name="School" ng-model="vm.newParticipant.school">
+      </label>
+      <label>
+         Sport:
+         <input type="text" name="Sport" ng-model="vm.newParticipant.sport">
+      </label>
+      <label>
+         Money Raised:
+         <input type="text" name="Money Raised" ng-model="vm.newParticipant.moneyRaised">
+      </label>
+      <label>
+         Goal:
+         <input type="text" name="Goal" ng-model="vm.newParticipant.goal">
+      </label>
+      <label>
+        About me:
+        <textarea row="20" ng-model="vm.newParticipant.description"></textarea>
+      </label>
+      <a class="button expand" ng-click="vm.saveNewParticipant()">Save</a>
+    </div>
+  </div>
+</div>
+
+<zf-notification-set id="main-notifications" autoclose="3000" position="bottom-left" class="success"></zf-notification-set>
+

@@ -1,0 +1,14 @@
+#missionImage {
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.3), 
+    rgba(0, 0, 0, 0.3)
+  ), url("../images/helping_up.JPG");
+  background-attachment: fixed;
+  background-size: cover;
+  box-shadow: inset 0px 0px 0 2000px rgba(0,0,0,0.15);
+
+  color: #FFF;  
+  h1, h3 {
+    color: #FFF;  
+  }
+}

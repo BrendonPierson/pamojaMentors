@@ -1,0 +1,27 @@
+<div class="grid-frame">
+  <div class="grid-block">
+    <div class="grid-content">
+      <img ng-src={{vm.participant.imageUrl}}>
+    </div>
+    <div class="grid-content align-center">
+      <h1>{{ vm.participant.fName }} {{ vm.participant.lName}} </h1>
+      <p>School: {{ vm.participant.school}}</p>
+      <p>Sport: {{ vm.participant.sport}}</p>
+      <p>Raised: {{ vm.participant.moneyRaised | currency : symbol : fractionSize }}</p>
+      <p>Goal: {{ vm.participant.goal | currency : symbol : fractionSize }}</p>
+      <p>Description: {{ vm.participant.description}}</p>
+      <div>
+        <div id="574419139163399953" align="center" style="width: 100%; overflow-y: hidden;" class="wcustomhtml">
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="N4L7R2NQXFLZN">
+            <input type="hidden" name="participantId" value="{{ vm.participant.uid }}">
+            <input type="submit" value="Donate Now!" ng-click="vm.goToPaypal()" name="submit" title="PayPal - The safer, easier way to pay online!" class="button large success expand">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<zf-notification-set id="main-notifications" autoclose="3000" position="bottom-left" class="success "></zf-notification-set>

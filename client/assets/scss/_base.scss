@@ -1,0 +1,11 @@
+.active {
+  font-weight: 900;
+  text-decoration: underline;
+  color: $gray;
+}
+
+$titleFontFamily: 'Fjalla One', sans-serif;
+
+.title-text {
+  font-family: $titleFontFamily;
+}

@@ -22,7 +22,7 @@ var paths = {
   assets: [
     './client/**/*.*',
     '!./client/templates/**/*.*',
-    '!./client/assets/{scss,js}/**/*.*'
+    '!./client/assets/{scss,js,images}/**/*.*'
   ],
   // Sass will check these folders for files when you use @import.
   sass: [
@@ -40,13 +40,26 @@ var paths = {
     'bower_components/angular-ui-router/release/angular-ui-router.js',
     'bower_components/foundation-apps/js/vendor/**/*.js',
     'bower_components/foundation-apps/js/angular/**/*.js',
+    'bower_components/jquery/dist/jquery.min.js',
+    'bower_components/typed.js/dist/typed.min.js',
+    'bower_components/angularfire/dist/angularfire.min.js',
+    'bower_components/firebase/firebase.js',
+    'bower_components/lodash/lodash.min.js',
     '!bower_components/foundation-apps/js/angular/app.js'
   ],
   // These files are for your app's JavaScript
   appJS: [
     'client/assets/js/app.js',
     'client/assets/js/app.config.js',
-    'client/assets/js/AboutCtrl.js'
+    'client/assets/js/app.constants.js',
+    'client/assets/js/ParticipantsCtrl.js',
+    'client/assets/js/ParticipantCtrl.js',
+    'client/assets/js/ParticipantEditCtrl.js',
+    'client/assets/js/HomeCtrl.js',
+    'client/assets/js/AdminCtrl.js',
+    'client/assets/js/DonateCtrl.js',
+    'client/assets/js/LoginCtrl.js',
+    'client/assets/js/app.auth.js',
   ]
 }
 
@@ -94,6 +107,10 @@ gulp.task('copy:foundation', function(cb) {
   // Iconic SVG icons
   gulp.src('./bower_components/foundation-apps/iconic/**/*')
     .pipe(gulp.dest('./build/assets/img/iconic/'))
+  ;
+
+  gulp.src('./client/assets/images/**/*')
+    .pipe(gulp.dest('./build/assets/images/'))
   ;
 
   cb();

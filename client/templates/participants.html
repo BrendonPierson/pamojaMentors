@@ -1,0 +1,18 @@
+<div class="grid-frame">
+  <div class="grid-block vertical">
+    <h1 class="title-text">Participants</h1>
+    <div class="grid-block small-up-2 medium-up-3 large-up-4 wrap">
+      <div class="grid-content" ng-repeat="participant in vm.participants">
+        <div>
+          <a class="" ui-sref="participant({ id: participant.uid })">
+            <h3>{{ participant.fName}} {{ participant.lName}}</h3>
+            <img ng-src={{participant.imageUrl}} width="200">
+          </a>
+          <br>
+          <br>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a ui-sref="contacts.detail({ id: contact.id })">{{ contact.name }}</a>
