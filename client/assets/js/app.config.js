@@ -55,6 +55,12 @@
       controller: 'ParticipantCtrl',
       controllerAs: 'vm'
     })
+    .state('thankYou', {
+      url: "/thankyou",
+      templateUrl: "templates/thankYou.html",
+      controller: 'ThankYouCtrl',
+      controllerAs: 'vm'
+    })
     .state('participantEdit', {
       url: "/participantEdit/:id",
       templateUrl: "templates/participantEdit.html",

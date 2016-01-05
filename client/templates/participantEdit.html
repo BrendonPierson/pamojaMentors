@@ -6,9 +6,21 @@
         Back to Admin
       </a>
       <img ng-src={{vm.participant.imageUrl}}>
+      <br>
       <label>
          Image Url:
          <input type="text" name="Image Url" ng-model="vm.participant.imageUrl" required>
+      </label>
+      <label>
+        Is active?:
+        <label>
+          True
+           <input type="radio" ng-model="vm.participant.isActive" value="true" required>
+        </label>
+        <label>
+          False
+           <input type="radio" ng-model="vm.participant.isActive" value="false" required>
+      </label>
       </label>
     </div>
     <div class="grid-content medium-9 align-center">
@@ -45,4 +57,4 @@
   </div>
 </div>
 
-<zf-notification-set id="main-notifications" autoclose="3000" position="bottom-left" class="success"></zf-notification-set>
+<zf-notification-set id="main-notifications" autoclose="3000" position="bottom-left" color="success"></zf-notification-set>

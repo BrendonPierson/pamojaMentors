@@ -18,7 +18,6 @@
       vm.participants = response.data;
     }, function(err) {
       console.log(err);
-
     });
     
     vm.saveNewParticipant = function() {
@@ -30,7 +29,8 @@
 
     function addedSuccessfully(ref){
       console.log(ref);
-      foundationApi.publish('main-notifications', { title: 'Added Successfully', content:  vm.newParticipant.lName, autoclose: '3000' });
+      foundationApi.publish('main-notifications', { title: 'Added Successfully', content:  vm.newParticipant.lName, autoclose: '3000', color: 'success'  });
+      foundationApi.publish('basicModal', 'close');
     }
 
   }

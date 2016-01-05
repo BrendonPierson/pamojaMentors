@@ -24,11 +24,12 @@
           foundationApi.publish('main-notifications', { title: 'Welcome Back', content:  authData.google.displayName, autoclose: '3000' });
           console.log("user exists");
         } else {
-          users.$add(authData).then(function(ref) {
-            var id = ref.key();
-            console.log("added record with id " + id);
-            users.$indexFor(id); // returns location in the array
-            foundationApi.publish('main-notifications', { title: 'successfully added', content:  authData.google.displayName, autoclose: '3000' });
+          ref.child('users').child(authData.uid).set(authData, function(err) {
+            if(err) {
+              consol.log(err);
+            } else {
+              foundationApi.publish('main-notifications', { title: 'successfully added', content:  authData.google.displayName, autoclose: '3000' });
+            }
           });
         }
       }

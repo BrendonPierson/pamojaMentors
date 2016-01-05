@@ -60,6 +60,7 @@ var paths = {
     'client/assets/js/AdminCtrl.js',
     'client/assets/js/DonateCtrl.js',
     'client/assets/js/LoginCtrl.js',
+    'client/assets/js/ThankYouCtrl.js',
     'client/assets/js/app.auth.js',
   ]
 }

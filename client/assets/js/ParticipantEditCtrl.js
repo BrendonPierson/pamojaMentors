@@ -35,7 +35,7 @@
     }
     
     function savedSuccessfully(){
-      foundationApi.publish('main-notifications', { title: 'Saved Successfully', content:  vm.participant.lName, autoclose: '3000' });
+      foundationApi.publish('main-notifications', { title: 'Saved Successfully', content:  "Participant: " + vm.participant.fName + " " + vm.participant.lName, autoclose: '3000', color: 'success' });
     }
 
   }
