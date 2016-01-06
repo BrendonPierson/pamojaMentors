@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" ng-app="application">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foundation for Apps</title>
+    <link href='https://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href="./assets/css/app.css" rel="stylesheet" type="text/css">
+    <script src="./assets/js/foundation.js"></script>
+    <script src="./assets/js/templates.js"></script>
+    <script src="./assets/js/routes.js"></script>
+    <script src="./assets/js/app.js"></script>
+  </head>
+  <body zf-esc-close>
+    <div class="grid-frame vertical">
+
+      <div class="menu-group primary">
+        <div class="menu-group-left">
+          <ul class="menu-bar primary icon-top medium-icon-left">
+            <li><a ui-sref-active="active" class="" ui-sref="home"><img zf-iconic="" icon="home" size="small" class="iconic-color-primary">Pamoja</a></li>
+            <li>
+              <a ui-sref-active="active" class="" ui-sref="donate"><img zf-iconic="" icon="thumb" size="small" class="iconic-color-primary">
+                Donate
+              </a>
+            </li>
+            <li>
+              <a ui-sref-active="active" class="" ui-sref="admin"><img zf-iconic="" icon="cog" size="small" class="iconic-color-alert">
+                Admin
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group-right">
+          <ul class="primary menu-bar icon-top medium-icon-right">
+            <li>
+              <a ui-sref-active="active" class="" ui-sref="mission"><img zf-iconic="" icon="flag" size="small" class="iconic-color-primary">
+                Mission
+              </a>
+            </li>
+            <li>
+              <a ui-sref-active="active" class="" ui-sref="about"><img zf-iconic="" icon="document" size="small" class="iconic-color-primary">
+                About
+              </a>
+            </li>
+            <li>
+              <a ui-sref-active="active" class="" ui-sref="programs"><img zf-iconic="" icon="magnifying-glass" size="small" class="iconic-color-primary">
+                Programs
+              </a>
+            </li>
+            <li>
+              <a ui-sref-active="active" class="" ui-sref="participants"><img zf-iconic="" icon="person" size="small" class="iconic-color-primary">
+                Participants
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div ui-view>
+      </div>
+
+    </div>
+  </body>
+</html>
