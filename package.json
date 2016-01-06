@@ -2,7 +2,9 @@
   "name": "foundation-apps-template",
   "version": "1.2.0",
   "scripts": {
-    "start": "gulp",
+    "postinstall": "bower install",
+    "start": "node index.js",
+    "dev": "gulp",
     "build": "gulp build --production"
   },
   "devDependencies": {
@@ -25,5 +27,8 @@
   "private": true,
   "dependencies": {
     "express": "^4.13.3"
+  },
+  "engines": {
+    "node": "4.2.2"
   }
 }
