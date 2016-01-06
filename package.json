@@ -5,7 +5,8 @@
     "postinstall": "bower install",
     "start": "node index.js",
     "dev": "gulp",
-    "build": "gulp build --production"
+    "build": "gulp build --production",
+    "prestart": "npm run build"
   },
   "devDependencies": {
     "front-router": "^1.0.0",
@@ -26,7 +27,9 @@
   },
   "private": true,
   "dependencies": {
-    "express": "^4.13.3"
+    "bower": "^1.7.2",
+    "express": "^4.13.3",
+    "gulp": "^3.9.0"
   },
   "engines": {
     "node": "4.2.2"
