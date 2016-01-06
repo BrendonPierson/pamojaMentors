@@ -5,6 +5,10 @@ app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/build'));
 
+app.get('/', function(request, response) {
+  response.send('<p>some html</p>');
+});
+
 app.post('/thankyou', function (req, res) {
   res.send('POST request to the homepage');
 });
