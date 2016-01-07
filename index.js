@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var http = require('http');
 var querystring = require('querystring');
-var fb = require('firebase');
+var Firebase = require('firebase');
 
 var pp_hostname = "https://www.sandbox.paypal.com"; // Change to www.sandbox.paypal.com to test against sandbox
 

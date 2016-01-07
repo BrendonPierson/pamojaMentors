@@ -29,6 +29,7 @@
   "dependencies": {
     "bower": "^1.7.2",
     "express": "^4.13.3",
+    "firebase": "^2.3.2",
     "gulp": "^3.9.0"
   },
   "engines": {
