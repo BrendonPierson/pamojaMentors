@@ -5,6 +5,7 @@
     </div>
     <div class="grid-content align-center">
       <h1>{{ vm.participant.fName }} {{ vm.participant.lName}} </h1>
+      <meter min="0" max="5000" low="500" high="3000" optimum="4000" value="{{ vm.participant.moneyRaised }}"></meter>
       <p>School: {{ vm.participant.school}}</p>
       <p>Sport: {{ vm.participant.sport}}</p>
       <p>Raised: {{ vm.participant.moneyRaised | currency : symbol : fractionSize }}</p>
