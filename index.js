@@ -32,8 +32,8 @@ app.post('/thankyou', function (req, res) {
     return money + amount;
   });
 
-  ref.child('participants').child(donation.participant).child('donations').child(donation.transactionID).set(donation);
-  ref.child('donations').child(donation.transactionID).set(donation);
+  ref.child('participants').child(donation.participant).child('donations').child(donation.date + "+" + donation.transactionID).set(donation);
+  ref.child('donations').child(donation.date + "+" + donation.transactionID).set(donation);
   res.redirect('/#!/thankyou?id=' + donation.participant + "&amount=" + donation.amount);
 });
 
@@ -70,7 +70,6 @@ function ppHandshake(tx) {
     res.setEncoding('utf8');
     res.on('data', function (chunk) {
       console.log('BODY: ' + chunk);
-      ref.child('papalData').push(chunk);
     });
     res.on('end', function() {
       console.log('No more data in response.')
