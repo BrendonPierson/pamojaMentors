@@ -60,26 +60,25 @@ function ppHandshake(tx) {
     }
   };
 
-  var request = http.request(options, function(response) {
-    console.log('STATUS: ' + response.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(response.headers));
-    response.setEncoding('utf8');
-    response.on('data', function (chunk) {
+  var req = http.request(options, function(res) {
+    console.log('STATUS: ' + res.statusCode);
+    console.log('HEADERS: ' + JSON.stringify(res.headers));
+    res.setEncoding('utf8');
+    res.on('data', function (chunk) {
       console.log('BODY: ' + chunk);
-      ref.child('paypalResponse').push(chunk);
     });
-    response.on('end', function() {
+    res.on('end', function() {
       console.log('No more data in response.')
     })
   });
 
-  request.on('error', function(e) {
+  req.on('error', function(e) {
     console.log('problem with request: ' + e.message);
   });
 
   // write data to request body
-  request.write(postData);
-  request.end();
+  req.write(postData);
+  req.end();
 }
 
   
