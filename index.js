@@ -3,10 +3,10 @@ var app = express();
 var http = require('http');
 var querystring = require('querystring');
 var Firebase = require('firebase');
+var ref = new Firebase('https://pamoja.firebaseio.com/');
 
 var pp_hostname = "https://www.sandbox.paypal.com/"; // Change to www.paypal.com to test against sandbox
 
-var ref = new Firebase('https://pamoja.firebaseio.com/');
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/build'));
@@ -19,19 +19,25 @@ app.get('/thankyou', function (req, res) {
 app.post('/thankyou', function (req, res) {
   var amount = Number(req.query.amt.split('%2e').join('.'));
 
-  ref.child('participants').child(req.query.item_number).child('moneyRaised').transaction(function(money) {
-    return money + amount;
-  });
-
-  ref.child('donations').child(req.query.tx).set({
-    tx: req.query.tx,
-    amt: amount,
+  var donation = {
+    transactionID: req.query.tx,
+    message: req.query.cm,
+    status: req.query.st,
+    amount: amount,
     participant: req.query.item_number,
     sig: req.query.sig,
     date: Date.now()
+  };
+
+  ref.child('participants').child(donation.participant).child('moneyRaised').transaction(function(money) {
+    return money + amount;
   });
 
-  res.send("<h1>Thank you for your donation</h1>");
+  ref.child('participants').child(donation.participant).child('donations').child(donation.transactionID).set(donation);
+
+  ref.child('donations').child(donation.participant).set(donation);
+
+  res.redirect('/#!/thankyou/' + donation.participant);
 });
 
 var server = app.listen(app.get('port'), function() {
