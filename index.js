@@ -31,7 +31,7 @@ app.post('/thankyou', function (req, res) {
     date: Date.now()
   });
 
-  res.send("<h1>Thank you for your donation of ", amount + "</h1>");
+  res.send("<h1>Thank you for your donation</h1>");
 });
 
 var server = app.listen(app.get('port'), function() {
