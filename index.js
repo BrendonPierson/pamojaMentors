@@ -7,18 +7,11 @@ var ref = new Firebase('https://pamoja.firebaseio.com/');
 var request = require('request');
 var bodyParser = require('body-parser');
 
-var pp_hostname = "https://www.sandbox.paypal.com/"; // Change to www.paypal.com to test against sandbox
-
 app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(express.static(__dirname + '/build'));
-
-app.get('/thankyou', function (req, res) {
-  var tx = req.query.tx;
-  ppHandshake(tx);
-});
 
 app.post('/ipn', function(req, res) {
   console.log('Received POST /');
@@ -65,6 +58,8 @@ app.post('/ipn', function(req, res) {
         console.log('Verified IPN!');
         console.log('\n\n');
 
+        ref.child('rawDonations').push(req.boy);
+
         // assign posted variables to local variables
         var item_name = req.body['item_name'];
         var item_number = req.body['item_number'];
@@ -92,33 +87,11 @@ app.post('/ipn', function(req, res) {
 
       } else if (body.substring(0, 7) === 'INVALID') {
         // IPN invalid, log for manual investigation
-        console.log('Invalid IPN!'.error);
+        console.log('Invalid IPN!');
         console.log('\n\n');
       }
     }
   });
-});
-
-app.post('/thankyou', function (req, res) {
-  var amount = Number(req.query.amt.split('%2e').join('.'));
-
-  var donation = {
-    transactionID: req.query.tx,
-    message: req.query.cm,
-    status: req.query.st,
-    amount: amount,
-    participant: req.query.item_number,
-    sig: req.query.sig,
-    date: Date.now()
-  };
-
-  ref.child('participants').child(donation.participant).child('moneyRaised').transaction(function(money) {
-    return money + amount;
-  });
-
-  ref.child('participants').child(donation.participant).child('donations').child(donation.date + "+" + donation.transactionID).set(donation);
-  ref.child('donations').child(donation.date + "+" + donation.transactionID).set(donation);
-  res.redirect('/#!/thankyou?id=' + donation.participant + "&amount=" + donation.amount);
 });
 
 var server = app.listen(app.get('port'), function() {
@@ -128,49 +101,3 @@ var server = app.listen(app.get('port'), function() {
   console.log('Example app listening at http://%s:%s', host, port);
   console.log('Node app is running on port', app.get('port'));
 });
-
-
-// function ppHandshake(tx) {
-  
-//   var postData = querystring.stringify({
-//     cmd: "_notify-synch",
-//     tx: tx,
-//     at: process.env.IDENTITY
-//   });
-  
-//   var options = {
-//     hostname: pp_hostname,
-//     port: 80,
-//     path: "cgi-bin/webscr",
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/x-www-form-urlencoded',
-//       'Content-Length': postData.length
-//     }
-//   };
-
-//   var req = http.request(options, function(res) {
-//     console.log('STATUS: ' + res.statusCode);
-//     console.log('HEADERS: ' + JSON.stringify(res.headers));
-//     res.setEncoding('utf8');
-//     res.on('data', function (chunk) {
-//       console.log('BODY: ' + chunk);
-//     });
-//     res.on('end', function() {
-//       console.log('No more data in response.')
-//     })
-//   });
-
-//   req.on('error', function(e) {
-//     console.log('problem with request: ' + e.message);
-//   });
-
-//   // write data to request body
-//   req.write(postData);
-//   req.end();
-// }
-
-  
-
-
-
