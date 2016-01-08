@@ -58,7 +58,9 @@ app.post('/ipn', function(req, res) {
         console.log('Verified IPN!');
         console.log('\n\n');
 
-        ref.child('rawDonations').push(req.boy);
+        ref.child('rawDonations').push(req.body, function() {
+          console.log("successfully pushed to fb");
+        });
 
         // assign posted variables to local variables
         var item_name = req.body['item_name'];
