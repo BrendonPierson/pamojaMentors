@@ -4,7 +4,7 @@ var http = require('http');
 var querystring = require('querystring');
 var Firebase = require('firebase');
 
-var pp_hostname = "https://www.sandbox.paypal.com"; // Change to www.sandbox.paypal.com to test against sandbox
+var pp_hostname = "https://www.sandbox.paypal.com"; // Change to www.paypal.com to test against sandbox
 
 var ref = new Firebase('https://pamoja.firebaseio.com/');
 
@@ -31,7 +31,7 @@ app.post('/thankyou', function (req, res) {
     date: Date.now()
   });
 
-  res.send("</h1>Thank you for your donation of ", amount);
+  res.send("<h1>Thank you for your donation of ", amount + "</h1>");
 });
 
 var server = app.listen(app.get('port'), function() {
@@ -43,10 +43,6 @@ var server = app.listen(app.get('port'), function() {
 });
 
 function ppHandshake(tx) {
-  var body = {
-    tx: tx,
-    at: process.env.IDENTITY
-  };
   
   var postData = querystring.stringify({
     tx : tx,
@@ -64,25 +60,26 @@ function ppHandshake(tx) {
     }
   };
 
-  var req = http.request(options, function(res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    res.setEncoding('utf8');
-    res.on('data', function (chunk) {
+  var request = http.request(options, function(response) {
+    console.log('STATUS: ' + response.statusCode);
+    console.log('HEADERS: ' + JSON.stringify(response.headers));
+    response.setEncoding('utf8');
+    response.on('data', function (chunk) {
       console.log('BODY: ' + chunk);
+      ref.child('paypalResponse').push(chunk);
     });
-    res.on('end', function() {
+    response.on('end', function() {
       console.log('No more data in response.')
     })
   });
 
-  req.on('error', function(e) {
+  request.on('error', function(e) {
     console.log('problem with request: ' + e.message);
   });
 
   // write data to request body
-  req.write(postData);
-  req.end();
+  request.write(postData);
+  request.end();
 }
 
   
