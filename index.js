@@ -4,7 +4,7 @@ var http = require('http');
 var querystring = require('querystring');
 var Firebase = require('firebase');
 
-var pp_hostname = "https://www.sandbox.paypal.com"; // Change to www.paypal.com to test against sandbox
+var pp_hostname = "https://www.sandbox.paypal.com/"; // Change to www.paypal.com to test against sandbox
 
 var ref = new Firebase('https://pamoja.firebaseio.com/');
 
@@ -45,6 +45,7 @@ var server = app.listen(app.get('port'), function() {
 function ppHandshake(tx) {
   
   var postData = querystring.stringify({
+    cmd: "_notify-synch",
     tx : tx,
     at: process.env.IDENTITY
   });
@@ -52,7 +53,7 @@ function ppHandshake(tx) {
   var options = {
     hostname: pp_hostname,
     port: 80,
-    path: "/cgi-bin/webscr",
+    path: "cgi-bin/webscr",
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -66,6 +67,7 @@ function ppHandshake(tx) {
     res.setEncoding('utf8');
     res.on('data', function (chunk) {
       console.log('BODY: ' + chunk);
+      ref.child('papalData').push(chunk);
     });
     res.on('end', function() {
       console.log('No more data in response.')
