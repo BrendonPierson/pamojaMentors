@@ -35,9 +35,9 @@ app.post('/thankyou', function (req, res) {
 
   ref.child('participants').child(donation.participant).child('donations').child(donation.transactionID).set(donation);
 
-  ref.child('donations').child(donation.participant).set(donation);
+  ref.child('donations').child(donation.transactionID).set(donation);
 
-  res.redirect('/#!/thankyou/' + donation.participant);
+  res.redirect('/#!/thankyou?id=' + donation.participant + "&amount=" + donation.amount);
 });
 
 var server = app.listen(app.get('port'), function() {

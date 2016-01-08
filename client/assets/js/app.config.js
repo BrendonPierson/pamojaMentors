@@ -56,7 +56,7 @@
       controllerAs: 'vm'
     })
     .state('thankYou', {
-      url: "/thankyou",
+      url: "/thankyou?id&amount",
       templateUrl: "templates/thankYou.html",
       controller: 'ThankYouCtrl',
       controllerAs: 'vm'
