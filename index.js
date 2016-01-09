@@ -64,7 +64,7 @@ app.post('/ipn', function(req, res) {
         });
 
 
-        if(req.body['txn_type'] === 'web_accept' || req.body['txn_type'] === 'recurring_payment') {
+        if(req.body['txn_type'] === 'web_accept') {
           let payment_amount = Number(req.body['mc_gross']);
 
           // Leave out any sensitive information when the data is stored on the participant
@@ -81,6 +81,14 @@ app.post('/ipn', function(req, res) {
           };
           ref.child('participants').child(donation.item_number).child('donations').push(donation);
           ref.child('participants').child(donation.item_number).child('moneyRaised').transaction( money => Number(money) + payment_amount);  
+        } else if(req.body['txn_type'] === 'recurring_payment') {
+          ref.child('recurringPayments').child(req.body['recurring_payment_id']).child('donations').push({
+            amount: Number(req.body['mc_gross']),
+            time_created: req.body['time_created'],
+            name: req.body['product_name']
+          });
+        } else if(req.body['txn_type'] === 'recurring_payment_profile_created') {
+          ref.child('recurringPayments').child(req.body['recurring_payment_id']).set(req.body);
         }
 
         // IPN message values depend upon the type of notification sent.
