@@ -1,12 +1,12 @@
 'use strict';
-var express = require('express');
-var app = express();
-var http = require('http');
-var querystring = require('querystring');
-var Firebase = require('firebase');
-var ref = new Firebase('https://pamoja.firebaseio.com/');
-var request = require('request');
-var bodyParser = require('body-parser');
+let express = require('express');
+let app = express();
+let http = require('http');
+let querystring = require('querystring');
+let Firebase = require('firebase');
+let ref = new Firebase('https://pamoja.firebaseio.com/');
+let request = require('request');
+let bodyParser = require('body-parser');
 
 app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.urlencoded({
@@ -25,10 +25,10 @@ app.post('/ipn', function(req, res) {
   res.end();
 
   // read the IPN message sent from PayPal and prepend 'cmd=_notify-validate'
-  var postreq = 'cmd=_notify-validate';
-  for (var key in req.body) {
+  let postreq = 'cmd=_notify-validate';
+  for (let key in req.body) {
     if (req.body.hasOwnProperty(key)) {
-      var value = querystring.escape(req.body[key]);
+      let value = querystring.escape(req.body[key]);
       postreq = postreq + "&" + key + "=" + value;
     }
   }
@@ -37,7 +37,7 @@ app.post('/ipn', function(req, res) {
   console.log('Posting back to paypal');
   console.log(postreq);
   console.log('\n\n');
-  var options = {
+  let options = {
     url: 'https://www.sandbox.paypal.com/cgi-bin/webscr',
     method: 'POST',
     headers: {
@@ -59,23 +59,27 @@ app.post('/ipn', function(req, res) {
         console.log('Verified IPN!');
         console.log('\n\n');
 
-        ref.child('rawDonations').push(req.body, function() {
+        ref.child('rawDonations').push(req.body, () => {
           console.log("successfully pushed donation to fb");
         });
 
-        ref.child('participants').child(req.body['item_number']).child('donations').push(req.body);
-        ref.child('participants').child(req.body['item_number']).child('moneyRaised').transaction( money => Number(money) + Number(req.body['mc_gross']));
+        // Leave out any sensitive information when the data is stored on the participant
+        let payment_amount = Number(req.body['mc_gross']);
+        let donation = {
+          item_name: req.body['item_name'],
+          item_number: req.body['item_number'],
+          payment_status: req.body['payment_status'],
+          txn_id: req.body['txn_id'],
+          fName: req.body['first_name'],
+          city: req.body['address_city'],
+          state: req.body['address_state'],
+          date: Date.now(),
+          payment_amount
+        };
 
-        // assign posted variables to local variables
-        var item_name = req.body['item_name'];
-        var item_number = req.body['item_number'];
-        var payment_status = req.body['payment_status'];
-        var payment_amount = req.body['mc_gross'];
-        var payment_currency = req.body['mc_currency'];
-        var txn_id = req.body['txn_id'];
-        var receiver_email = req.body['receiver_email'];
-        var payer_email = req.body['payer_email'];
-
+        ref.child('participants').child(donation.item_number).child('donations').push(donation);
+        ref.child('participants').child(donation.item_number).child('moneyRaised').transaction( money => Number(money) + payment_amount);  
+        
         //Lets check a variable
         console.log("Checking variable");
         console.log("payment_status:", payment_status)
