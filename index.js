@@ -1,3 +1,4 @@
+'use strict';
 var express = require('express');
 var app = express();
 var http = require('http');
@@ -59,8 +60,11 @@ app.post('/ipn', function(req, res) {
         console.log('\n\n');
 
         ref.child('rawDonations').push(req.body, function() {
-          console.log("successfully pushed to fb");
+          console.log("successfully pushed donation to fb");
         });
+
+        ref.child('participants').child(req.body['item_number']).child('donations').push(req.body);
+        ref.child('participants').child(req.body['item_number']).child('moneyRaised').transaction( money => Number(money) + Number(req.body['mc_gross']));
 
         // assign posted variables to local variables
         var item_name = req.body['item_name'];
