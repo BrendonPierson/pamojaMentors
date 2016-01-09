@@ -82,7 +82,7 @@ app.post('/ipn', function(req, res) {
         
         //Lets check a variable
         console.log("Checking variable");
-        console.log("payment_status:", payment_status)
+        console.log("payment_status:", donation.payment_status)
         console.log('\n\n');
 
         // IPN message values depend upon the type of notification sent.
