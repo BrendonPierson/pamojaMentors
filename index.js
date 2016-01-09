@@ -1,12 +1,12 @@
 'use strict';
-let express = require('express');
-let app = express();
-let http = require('http');
-let querystring = require('querystring');
-let Firebase = require('firebase');
-let ref = new Firebase('https://pamoja.firebaseio.com/');
-let request = require('request');
-let bodyParser = require('body-parser');
+const express = require('express');
+const app = express();
+const http = require('http');
+const querystring = require('querystring');
+const Firebase = require('firebase');
+const ref = new Firebase('https://pamoja.firebaseio.com/');
+const request = require('request');
+const bodyParser = require('body-parser');
 
 app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.urlencoded({
@@ -50,7 +50,7 @@ app.post('/ipn', function(req, res) {
     agent: false
   };
 
-  request(options, function callback(error, response, body) {
+  request(options, (error, response, body) => {
     if (!error && response.statusCode === 200) {
 
       // inspect IPN validation result and act accordingly
@@ -59,38 +59,36 @@ app.post('/ipn', function(req, res) {
         console.log('Verified IPN!');
         console.log('\n\n');
 
-        ref.child('rawDonations').push(req.body, () => {
+        ref.child('rawTransactions').push(req.body, () => {
           console.log("successfully pushed donation to fb");
         });
 
-        // Leave out any sensitive information when the data is stored on the participant
-        let payment_amount = Number(req.body['mc_gross']);
-        let donation = {
-          item_name: req.body['item_name'],
-          item_number: req.body['item_number'],
-          payment_status: req.body['payment_status'],
-          txn_id: req.body['txn_id'],
-          fName: req.body['first_name'],
-          city: req.body['address_city'],
-          state: req.body['address_state'],
-          date: Date.now(),
-          payment_amount
-        };
 
-        ref.child('participants').child(donation.item_number).child('donations').push(donation);
-        ref.child('participants').child(donation.item_number).child('moneyRaised').transaction( money => Number(money) + payment_amount);  
-        
-        //Lets check a variable
-        console.log("Checking variable");
-        console.log("payment_status:", donation.payment_status)
-        console.log('\n\n');
+        if(req.body['txn_type'] === 'web_accept') {
+          let payment_amount = Number(req.body['mc_gross']);
+
+          // Leave out any sensitive information when the data is stored on the participant
+          let donation = {
+            item_name: req.body['item_name'],
+            item_number: req.body['item_number'],
+            payment_status: req.body['payment_status'],
+            txn_id: req.body['txn_id'],
+            fName: req.body['first_name'],
+            city: req.body['address_city'],
+            state: req.body['address_state'],
+            date: Date.now(),
+            payment_amount
+          };
+          ref.child('participants').child(donation.item_number).child('donations').push(donation);
+          ref.child('participants').child(donation.item_number).child('moneyRaised').transaction( money => Number(money) + payment_amount);  
+        }
 
         // IPN message values depend upon the type of notification sent.
         // To loop through the &_POST array and print the NV pairs to the screen:
         console.log('Printing all key-value pairs...')
-        for (var key in req.body) {
+        for (let key in req.body) {
           if (req.body.hasOwnProperty(key)) {
-            var value = req.body[key];
+            let value = req.body[key];
             console.log(key + "=" + value);
           }
         }
@@ -104,9 +102,9 @@ app.post('/ipn', function(req, res) {
   });
 });
 
-var server = app.listen(app.get('port'), function() {
-  var host = server.address().address;
-  var port = server.address().port;
+const server = app.listen(app.get('port'), function() {
+  const host = server.address().address;
+  const port = server.address().port;
 
   console.log('Example app listening at http://%s:%s', host, port);
   console.log('Node app is running on port', app.get('port'));
