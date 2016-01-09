@@ -1,6 +1,29 @@
 #thankYouImg {
-  width: 100%;
-  background: url("../images/PSE_Logo.jpg");
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.5), 
+    rgba(0, 0, 0, 0.5)
+  ), url("../images/PSE_Logo.jpg");
+  background-attachment: fixed;
   background-size: cover;
   box-shadow: inset 0px 0px 0 2000px rgba(0,0,0,0.15);
+}
+
+.thankYouText {
+  h1 {
+    color: #FFF;
+    font-size: 3em;
+    font-family: $titleFontFamily;
+  }
+  p {
+    color: #FFF;
+    font-size: 2em;
+  }
+  a {
+    color: #FFF;
+    transition: color .3s ease;
+    &:hover {
+      color: #DDD;
+      transition: color .3s ease;
+    }
+  }
 }
