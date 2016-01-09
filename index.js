@@ -64,7 +64,7 @@ app.post('/ipn', function(req, res) {
         });
 
 
-        if(req.body['txn_type'] === 'web_accept') {
+        if(req.body['txn_type'] === 'web_accept' || req.body['txn_type'] === 'recurring_payment') {
           let payment_amount = Number(req.body['mc_gross']);
 
           // Leave out any sensitive information when the data is stored on the participant
