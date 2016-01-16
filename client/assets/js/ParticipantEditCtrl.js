@@ -22,7 +22,6 @@
     }
 
     vm.saveParticipant = function() {
-      // vm.participant.isActive = vm.participant.isActive === "true" ? true : false;
       ref.child('participants').child(vm.participant.uid).set(vm.participant, savedSuccessfully);
     }
     

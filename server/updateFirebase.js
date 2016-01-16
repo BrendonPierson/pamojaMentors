@@ -11,6 +11,7 @@ let updateFirebase = function(req) {
 
   if(req.body['txn_type'] === 'web_accept') {
     let payment_amount = Number(req.body['mc_gross']);
+    let memo = req.body['memo'] || false;
 
     // Leave out any sensitive information when the data is stored on the participant
     let donation = {
@@ -19,9 +20,11 @@ let updateFirebase = function(req) {
       payment_status: req.body['payment_status'],
       txn_id: req.body['txn_id'],
       fName: req.body['first_name'],
+      lName: req.body['last_name'].slice(0,1),
       city: req.body['address_city'],
       state: req.body['address_state'],
       date: Date.now(),
+      memo,
       payment_amount
     };
     ref.child('participants').child(donation.item_number).child('donations').push(donation);
