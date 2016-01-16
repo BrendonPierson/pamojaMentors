@@ -42,7 +42,7 @@ app.post('/ipn', function(req, res) {
   console.log(postreq);
   console.log('\n\n');
   let options = {
-    url: 'https://www.sandbox.paypal.com/cgi-bin/webscr',
+    url: 'https://www.paypal.com/cgi-bin/webscr',
     method: 'POST',
     headers: {
       'Connection': 'close'
