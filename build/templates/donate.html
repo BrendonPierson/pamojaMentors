@@ -2,7 +2,7 @@
   <div class="grid-block">
     <div class="grid-content medium-5 small-12">
       <h1 class="title-text">Donate</h1>
-      <h4>Total Donations in 2016: <strong>{{ (vm.donations | currency:$:0) || "$0" }}</strong></h4>
+      <h4>Total Donations in 2016: <strong>{{ (vm.donations["2016"] | currency:$:0) || "$0" }}</strong></h4>
       <p>
         Pamoja Social Enterprises relies heavily on the support and generosity of its community in the United States.  As an IRS tax-exempt organization, all contributions are tax-deductible.  Please consider a gift to support our ongoing efforts in Kenya as we continue to increase our footprint and enable the continued growth and development of Kenyan Youth.
       </p>

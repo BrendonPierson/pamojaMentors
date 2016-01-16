@@ -9,15 +9,11 @@
   function ParticipantEditCtrl(FBREF, $http, $stateParams, $firebaseObject, foundationApi) {
     var vm = this;
 
-    console.log($stateParams.id);
-
     var ref = new Firebase(FBREF);
-
 
     $http.get(FBREF + "/participants/" + $stateParams.id + '/.json').then(success, failure);
 
     function success (response) {
-      console.log(response.data);
       vm.participant = response.data;
     }
 
@@ -26,12 +22,7 @@
     }
 
     vm.saveParticipant = function() {
-      console.log("trying to save");
       ref.child('participants').child(vm.participant.uid).set(vm.participant, savedSuccessfully);
-    }
-    vm.archiveParticipant = function() {
-      console.log("trying to save");
-      ref.child('participants').child(vm.participant.uid).child('isActive').set(false);
     }
     
     function savedSuccessfully(){

@@ -24,11 +24,10 @@
         <img ng-src={{participant.imageUrl}}>
         <meter min="0" max="5000" low="500" high="3000" optimum="4000" value="{{ participant.moneyRaised }}"></meter>
         <div class="card-divider">
-          <h5>{{ participant.fName}} {{ participant.lName}}</h5>
+          <h5 class="text-center">{{ participant.fName}} {{ participant.lName}}</h5>
         </div>
         <div class="card-section">
-          <p>{{ participant.school}} {{ participant.sport}}, Raised: {{ (participant.moneyRaised | currency:$:0) || "$0" }}</p>
-          <p></p>
+          <p class="text-center">{{ participant.school}} {{ participant.sport}}, Raised: {{ (participant.moneyRaised | currency:$:0) || "$0" }}</p>
         </div>
       </div>
       </a>
