@@ -2,12 +2,10 @@
   <div class="grid-block">
     <div class="grid-content medium-5 small-12">
       <h1 class="title-text">Donate</h1>
+      <h4>Total Donations in 2016: <strong>{{ (vm.donations | currency:$:0) || "$0" }}</strong></h4>
       <p>
         Pamoja Social Enterprises relies heavily on the support and generosity of its community in the United States.  As an IRS tax-exempt organization, all contributions are tax-deductible.  Please consider a gift to support our ongoing efforts in Kenya as we continue to increase our footprint and enable the continued growth and development of Kenyan Youth.
       </p>
-      <!-- <a id="homeDonateButton" class="button large success expand" ui-sref="donate">
-        Donate
-      </a> -->
       <div>
         <div id="574419139163399953" align="center" style="width: 100%; overflow-y: hidden;" class="wcustomhtml">
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">

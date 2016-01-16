@@ -1,9 +1,18 @@
 <h1>Login</h1>
+<div class="grid-content">
+  <p>You must login using the google popup.  Make sure you allow popups for pamoja!</p>
+</div>
 
-<a ui-sref-active="active" class="button" ui-sref="admin">
-  <img zf-iconic="" icon="magnifying-glass" size="small" class="iconic-color-primary">
-  Admin
-</a>
+<div class="grid-block">
+  <a ngShow='vm.auth' ui-sref-active="active" class="button success expand slideInRight slideOutRight" ui-sref="admin">
+    <img zf-iconic="" icon="cog" size="medium" class="iconic-color-primary">
+    <h3>Go to Admin Page</h3>
+  </a>
 
-<zf-notification-set id="main-notifications" autoclose="3000" position="bottom-left" class="success "></zf-notification-set>
+  <a ngShow='vm.auth' ui-sref-active="active" class="button warning expand slideInRight slideOutRight" ng-click="vm.logOut()">
+    <img zf-iconic="" icon="account" size="medium" class="iconic-color-primary">
+    <h3>Logout</h3>
+  </a>
+</div>
+<zf-notification-set id="main-notifications" autoclose="3000" position="bottom-left"></zf-notification-set>
 

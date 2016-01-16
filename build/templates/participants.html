@@ -3,8 +3,10 @@
     <div class="grid-block shrink align-spaced v-align wrap">
       <h1 class="title-text">Participants</h1><p class="align-center">Click on a participant for more information.</p>
     </div>
-    <div class="grid-block small-up-2 medium-up-3 large-up-4 wrap">
-      <div class="grid-content" ng-repeat="participant in vm.participants">
+
+    <div class="grid-block small-up-1 medium-up-3 large-up-4 wrap align-spaced">
+
+      <!-- <div class="grid-content" ng-repeat="participant in vm.participants">
         <div>
           <a class="" ui-sref="participant({ id: participant.uid })">
             <h3>{{ participant.fName}} {{ participant.lName}}</h3>
@@ -13,9 +15,30 @@
           <meter min="0" max="5000" low="500" high="3000" optimum="4000" value="{{ participant.moneyRaised }}"></meter>
           <br>
           <br>
+        </div>
+      </div> -->
+
+    <div class="grid-content" ng-repeat="participant in vm.participants">
+      <a class="" ui-sref="participant({ id: participant.uid })">
+      <div class="primary card">
+        <img ng-src={{participant.imageUrl}}>
+        <meter min="0" max="5000" low="500" high="3000" optimum="4000" value="{{ participant.moneyRaised }}"></meter>
+        <div class="card-divider">
+          <h5>{{ participant.fName}} {{ participant.lName}}</h5>
+        </div>
+        <div class="card-section">
+          <p>{{ participant.school}} {{ participant.sport}}, Raised: {{ (participant.moneyRaised | currency:$:0) || "$0" }}</p>
+          <p></p>
+        </div>
       </div>
+      </a>
     </div>
+    
   </div>
+  
+
+  
 </div>
 
 <a ui-sref="contacts.detail({ id: contact.id })">{{ contact.name }}</a>
+
