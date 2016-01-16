@@ -4,6 +4,9 @@ var Firebase = require('firebase');
 var ref = new Firebase(process.env.FBURL);
 
 let updateFirebase = function(req) {
+  let timeStamp = Date.now();
+
+  req.body.timeStamp = timeStamp;
 
   ref.child('rawTransactions').push(req.body, () => {
     console.log("successfully pushed donation to fb");
@@ -23,7 +26,7 @@ let updateFirebase = function(req) {
       lName: req.body['last_name'].slice(0,1),
       city: req.body['address_city'],
       state: req.body['address_state'],
-      date: Date.now(),
+      timeStamp,
       memo,
       payment_amount
     };
