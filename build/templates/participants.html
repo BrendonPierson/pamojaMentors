@@ -6,23 +6,18 @@
 
     <div class="grid-block small-up-1 medium-up-3 large-up-4 wrap align-spaced">
 
-      <!-- <div class="grid-content" ng-repeat="participant in vm.participants">
-        <div>
-          <a class="" ui-sref="participant({ id: participant.uid })">
-            <h3>{{ participant.fName}} {{ participant.lName}}</h3>
-            <img ng-src={{participant.imageUrl}} >
-          </a>
-          <meter min="0" max="5000" low="500" high="3000" optimum="4000" value="{{ participant.moneyRaised }}"></meter>
-          <br>
-          <br>
-        </div>
-      </div> -->
-
     <div class="grid-content" ng-repeat="participant in vm.participants">
       <a class="" ui-sref="participant({ id: participant.uid })">
       <div class="primary card">
         <img ng-src={{participant.imageUrl}}>
-        <meter min="0" max="5000" low="500" high="3000" optimum="4000" value="{{ participant.moneyRaised }}"></meter>
+        <meter 
+              min="0" 
+              max="{{ participant.goal }}" 
+              low="{{ participant.goal * 0.25 }}" 
+              high="{{ participant.goal * 0.75 }}" 
+              optimum="{{ participant.goal }}" 
+              value="{{ participant.moneyRaised }}">
+        </meter>
         <div class="card-divider">
           <h5 class="text-center">{{ participant.fName}} {{ participant.lName}}</h5>
         </div>

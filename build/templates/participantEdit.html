@@ -1,11 +1,13 @@
 <div class="grid-frame">
   <div class="grid-block">
     <div class="grid-content medium-3">
+      <br>
       <a ui-sref-active="active" class="button expand" ui-sref="admin">
         <img zf-iconic="" icon="chevron" data-direction="left" size="small">
         Back to Admin
       </a>
       <img ng-src={{vm.participant.imageUrl}}>
+      <br>
       <br>
       <label>
          Image Url:
@@ -15,15 +17,21 @@
         Is active?:
         <label>
           True
-           <input type="radio" ng-model="vm.participant.isActive" value="true" required>
+           <input type="radio" ng-model="vm.participant.isActive" ng-value="true" required>
         </label>
         <label>
           False
-           <input type="radio" ng-model="vm.participant.isActive" value="false" required>
+           <input type="radio" ng-model="vm.participant.isActive" ng-value="false" required>
+        </label>
       </label>
+      <label>
+         Button Code:
+         <input type="text" name="Button Code" ng-model="vm.participant.buttonCode" required>
       </label>
     </div>
     <div class="grid-content medium-9 align-center">
+      <br>
+
       <label>
          First name:
          <input type="text" name="First Name" ng-model="vm.participant.fName" required>
