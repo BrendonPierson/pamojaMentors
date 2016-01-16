@@ -19,7 +19,7 @@
     
     vm.saveNewParticipant = function() {
       vm.newParticipant.dateAdded = Date.now();
-      vm.newParticipant.isActive = true
+      vm.newParticipant.moneyRaised = 0;
       var newPartRef = ref.child('participants').push(vm.newParticipant, addedSuccessfully(ref));
       ref.child('participants').child(newPartRef.key()).child('uid').set(newPartRef.key());
     }
