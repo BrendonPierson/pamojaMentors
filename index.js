@@ -3,10 +3,13 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const querystring = require('querystring');
-const Firebase = require('firebase');
-const ref = new Firebase('https://pamoja.firebaseio.com/');
+// const Firebase = require('firebase');
+// const ref = new Firebase('https://pamoja.firebaseio.com/');
 const request = require('request');
 const bodyParser = require('body-parser');
+const Auth = require('./server/auth');
+const auth = new Auth();
+const updateFirebase = require('./server/updateFirebase');
 
 app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.urlencoded({
@@ -15,6 +18,10 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(__dirname + '/build'));
 
 app.post('/ipn', function(req, res) {
+
+  if(!auth.isAuth()) {
+    auth.signIn();
+  }
   console.log('Received POST /');
   console.log(req.body);
   console.log('\n\n');
@@ -59,37 +66,38 @@ app.post('/ipn', function(req, res) {
         console.log('Verified IPN!');
         console.log('\n\n');
 
-        ref.child('rawTransactions').push(req.body, () => {
-          console.log("successfully pushed donation to fb");
-        });
+        updateFirebase(req);
 
+        // ref.child('rawTransactions').push(req.body, () => {
+        //   console.log("successfully pushed donation to fb");
+        // });
 
-        if(req.body['txn_type'] === 'web_accept') {
-          let payment_amount = Number(req.body['mc_gross']);
+        // if(req.body['txn_type'] === 'web_accept') {
+        //   let payment_amount = Number(req.body['mc_gross']);
 
-          // Leave out any sensitive information when the data is stored on the participant
-          let donation = {
-            item_name: req.body['item_name'],
-            item_number: req.body['item_number'],
-            payment_status: req.body['payment_status'],
-            txn_id: req.body['txn_id'],
-            fName: req.body['first_name'],
-            city: req.body['address_city'],
-            state: req.body['address_state'],
-            date: Date.now(),
-            payment_amount
-          };
-          ref.child('participants').child(donation.item_number).child('donations').push(donation);
-          ref.child('participants').child(donation.item_number).child('moneyRaised').transaction( money => Number(money) + payment_amount);  
-        } else if(req.body['txn_type'] === 'recurring_payment') {
-          ref.child('recurringPayments').child(req.body['recurring_payment_id']).child('donations').push({
-            amount: Number(req.body['mc_gross']),
-            time_created: req.body['time_created'],
-            name: req.body['product_name']
-          });
-        } else if(req.body['txn_type'] === 'recurring_payment_profile_created') {
-          ref.child('recurringPayments').child(req.body['recurring_payment_id']).set(req.body);
-        }
+        //   // Leave out any sensitive information when the data is stored on the participant
+        //   let donation = {
+        //     item_name: req.body['item_name'],
+        //     item_number: req.body['item_number'],
+        //     payment_status: req.body['payment_status'],
+        //     txn_id: req.body['txn_id'],
+        //     fName: req.body['first_name'],
+        //     city: req.body['address_city'],
+        //     state: req.body['address_state'],
+        //     date: Date.now(),
+        //     payment_amount
+        //   };
+        //   ref.child('participants').child(donation.item_number).child('donations').push(donation);
+        //   ref.child('participants').child(donation.item_number).child('moneyRaised').transaction( money => Number(money) + payment_amount);  
+        // } else if(req.body['txn_type'] === 'recurring_payment') {
+        //   ref.child('recurringPayments').child(req.body['recurring_payment_id']).child('donations').push({
+        //     amount: Number(req.body['mc_gross']),
+        //     time_created: req.body['time_created'],
+        //     name: req.body['product_name']
+        //   });
+        // } else if(req.body['txn_type'] === 'recurring_payment_profile_created') {
+        //   ref.child('recurringPayments').child(req.body['recurring_payment_id']).set(req.body);
+        // }
 
         // IPN message values depend upon the type of notification sent.
         // To loop through the &_POST array and print the NV pairs to the screen:
