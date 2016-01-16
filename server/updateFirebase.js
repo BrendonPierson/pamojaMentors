@@ -4,6 +4,7 @@ var Firebase = require('firebase');
 var ref = new Firebase(process.env.FBURL);
 
 let updateFirebase = function(req) {
+
   ref.child('rawTransactions').push(req.body, () => {
     console.log("successfully pushed donation to fb");
   });
@@ -24,6 +25,8 @@ let updateFirebase = function(req) {
       payment_amount
     };
     ref.child('participants').child(donation.item_number).child('donations').push(donation);
+    ref.child('totalDonations').child('2016').transaction( money => Number(money) + payment_amount); 
+    ref.child('totalDonations').child('cumulative').transaction( money => Number(money) + payment_amount); 
     ref.child('participants').child(donation.item_number).child('moneyRaised').transaction( money => Number(money) + payment_amount);  
   } else if(req.body['txn_type'] === 'recurring_payment') {
     ref.child('recurringPayments').child(req.body['recurring_payment_id']).child('donations').push({
