@@ -19,57 +19,112 @@
   <body zf-esc-close>
     <div class="grid-frame vertical">
 
-      <div class="menu-group primary">
-        <div class="menu-group-left">
-          <ul class="menu-bar primary icon-top medium-icon-left">
-            <li><a ui-sref-active="active" class="" ui-sref="home"><img zf-iconic="" icon="home" size="small" class="iconic-color-primary">Pamoja</a></li>
-            <li>
-              <a ui-sref-active="active" class="" ui-sref="donate"><img zf-iconic="" icon="thumb" size="small" class="iconic-color-primary">
-                Donate
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="menu-group-right">
-          <ul class="primary menu-bar icon-top medium-icon-right">
-            <li>
-              <a ui-sref-active="active" class="" ui-sref="mission"><img zf-iconic="" icon="flag" size="small" class="iconic-color-primary">
-                Mission
-              </a>
-            </li>
-            <li>
-              <a ui-sref-active="active" class="" ui-sref="about"><img zf-iconic="" icon="document" size="small" class="iconic-color-primary">
-                About
-              </a>
-            </li>
-            <li>
-              <a ui-sref-active="active" class="" ui-sref="programs"><img zf-iconic="" icon="magnifying-glass" size="small" class="iconic-color-primary">
-                Programs
-              </a>
-            </li>
-            <li>
-              <a ui-sref-active="active" class="" ui-sref="participants"><img zf-iconic="" icon="person" size="small" class="iconic-color-primary">
-                Participants
-              </a>
-            </li>
-          </ul>
+      <!-- Small nav -->
+      <div class="hide-for-medium">
+        <ul class="icon-left primary menu-bar">
+          <li><a zf-open="menu" class="button"><img zf-iconic="" icon="chevron" size="small" class="iconic-color-primary">Menu</a></li>
+        </ul>
+      </div>
+
+      <!-- >medium nav -->
+      <div class="show-for-medium">
+        <div class="menu-group primary">
+          <div class="menu-group-left">
+            <ul class="vertical medium-horizontal menu-bar primary icon-left">
+              <li><a ui-sref-active="active" class="" ui-sref="home"><img class="hide-for-medium-only" zf-iconic="" icon="home" size="small" class="iconic-color-primary">Pamoja</a></li>
+              <li>
+                <a ui-sref-active="active" class="" ui-sref="donate"><img class="hide-for-medium-only" zf-iconic="" icon="thumb" size="small" class="iconic-color-primary">
+                  Donate
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="menu-group-right">
+            <ul class="vertical medium-horizontal primary menu-bar icon-left">
+              <li>
+                <a ui-sref-active="active" class="" ui-sref="mission"><img class="hide-for-medium-only" zf-iconic="" icon="flag" size="small" class="iconic-color-primary">
+                  Mission
+                </a>
+              </li>
+              <li>
+                <a ui-sref-active="active" class="" ui-sref="about"><img class="hide-for-medium-only" zf-iconic="" icon="document" size="small" class="iconic-color-primary">
+                  About
+                </a>
+              </li>
+              <li>
+                <a ui-sref-active="active" class="" ui-sref="programs"><img class="hide-for-medium-only" zf-iconic="" icon="magnifying-glass" size="small" class="iconic-color-primary">
+                  Programs
+                </a>
+              </li>
+              <li>
+                <a ui-sref-active="active" class="" ui-sref="participants"><img class="hide-for-medium-only" zf-iconic="" icon="person" size="small" class="iconic-color-primary">
+                  Participants
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
       <div ui-view>
       </div>
 
-      <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-72500598-1', 'auto');
-        ga('send', 'pageview');
+    </div> <!-- end grid frame -->
 
-      </script>
+    <zf-offcanvas id="menu" position="left">
+      <a zf-close="" class="close-button">×</a>
+      <div class="menu-group primary">
+        <div class="menu-group-left">
+          <ul class="vertical medium-horizontal menu-bar primary icon-left">
+            <li><a zf-close="" ui-sref-active="active" class="" ui-sref="home"><img class="hide-for-medium-only" zf-iconic="" icon="home" size="small" class="iconic-color-primary">Pamoja</a></li>
+            <li>
+              <a zf-close="" ui-sref-active="active" class="" ui-sref="donate"><img class="hide-for-medium-only" zf-iconic="" icon="thumb" size="small" class="iconic-color-primary">
+                Donate
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="menu-group-right">
+          <ul class="vertical medium-horizontal primary menu-bar icon-left">
+            <li>
+              <a zf-close="" ui-sref-active="active" class="" ui-sref="mission"><img class="hide-for-medium-only" zf-iconic="" icon="flag" size="small" class="iconic-color-primary">
+                Mission
+              </a>
+            </li>
+            <li>
+              <a zf-close="" ui-sref-active="active" class="" ui-sref="about"><img class="hide-for-medium-only" zf-iconic="" icon="document" size="small" class="iconic-color-primary">
+                About
+              </a>
+            </li>
+            <li>
+              <a zf-close="" ui-sref-active="active" class="" ui-sref="programs"><img class="hide-for-medium-only" zf-iconic="" icon="magnifying-glass" size="small" class="iconic-color-primary">
+                Programs
+              </a>
+            </li>
+            <li>
+              <a zf-close="" ui-sref-active="active" class="" ui-sref="participants"><img class="hide-for-medium-only" zf-iconic="" icon="person" size="small" class="iconic-color-primary">
+                Participants
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </zf-offcanvas>
 
-    </div>
+
+
+
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72500598-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
   </body>
 </html>

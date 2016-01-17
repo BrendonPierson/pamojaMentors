@@ -528,10 +528,10 @@
 // 20. Off-canvas
 // - - - - - - - - - - - - - - -
 
-// $offcanvas-size-horizontal: 250px;
+$offcanvas-size-horizontal: 100%;
 // $offcanvas-size-vertical: 250px;
 
-// $offcanvas-background: #fff;
+$offcanvas-background: rgba(0,0,0,0);
 // $offcanvas-color: isitlight($offcanvas-background);
 // $offcanvas-padding: 0;
 // $offcanvas-shadow: 3px 0 10px rgba(black, 0.25);
