@@ -9,3 +9,12 @@ $titleFontFamily: 'Fjalla One', sans-serif;
 .title-text {
   font-family: $titleFontFamily;
 }
+
+.mobileNav {
+  z-index: 99;
+  padding: 0;
+  a {
+    padding: 0;
+    margin: 0;
+  }
+}
