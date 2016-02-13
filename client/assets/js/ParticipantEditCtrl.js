@@ -22,6 +22,8 @@
     }
 
     vm.saveParticipant = function() {
+      vm.participant.moneyRaised = parseInt(vm.participant.moneyRaised)
+      vm.participant.goal = parseInt(vm.participant.goal)
       ref.child('participants').child(vm.participant.uid).set(vm.participant, savedSuccessfully);
     }
     

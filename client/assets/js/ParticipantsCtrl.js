@@ -10,8 +10,12 @@
     var vm = this;
     var ref = new Firebase(FBREF);
 
-    vm.participants = $firebaseArray(ref.child('participants').orderByChild('isActive').equalTo(true));
-    
+    var participants = $firebaseArray(ref.child('participants').orderByChild('isActive').equalTo(true));
+    participants.$loaded().then(function(participants){
+      vm.participants = _.sortBy(participants, function(participant) { 
+        return participant.moneyRaised * -1
+      })
+    })
   }
 
 })();

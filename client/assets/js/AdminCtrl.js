@@ -16,6 +16,12 @@
     }, function(err) {
       console.log(err);
     });
+
+    $http.get(FBREF + 'totalDonations.json').then(function(response) {
+      vm.totalDonations = response.data;
+    }, function (err) {
+      console.log("err", err)
+    })
     
     vm.saveNewParticipant = function() {
       vm.newParticipant.dateAdded = Date.now();
@@ -25,8 +31,15 @@
       ref.child('participants').child(newPartRef.key()).child('uid').set(newPartRef.key(), function() {vm.newParticipant = {}});
     }
 
+    vm.saveTotalDonations = function() {
+      ref.child('totalDonations').set(vm.totalDonations, updatedTotalDonationsSuccessfully())
+    }
+
+    function updatedTotalDonationsSuccessfully() {
+      foundationApi.publish('main-notifications', { title: 'Successfully Updated', content:  "The total is now at $" + vm.totalDonations['2016'], autoclose: '3000', color: 'success'  });
+    }
+
     function addedSuccessfully(ref){
-      foundationApi.publish('main-notifications', { title: 'Added Successfully', content:  vm.newParticipant.lName, autoclose: '3000', color: 'success'  });
       foundationApi.publish('basicModal', 'close');
     }
 
