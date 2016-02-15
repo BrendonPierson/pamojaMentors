@@ -1,6 +1,6 @@
 <div class="grid-frame">
-  <div class="participant grid-block vertical medium-horizontal">
-    <div class="grid-content shrink">
+  <div class="participant grid-block small-vertical medium-horizontal large-horizontal">
+    <div class="grid-content small-12 medium-6 shrink">
       <img ng-src={{vm.participant.imageUrl}} alt="Participant photo">
       <div ng-show="vm.participant.buttonCode">
         <div id="574419139163399953" align="center" style="width: 100%; overflow-y: hidden;" class="wcustomhtml">
@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="grid-content align-center">
+    <div class="grid-content small-12 medium-6 align-center">
       <h1>{{ vm.participant.fName }} {{ vm.participant.lName}} </h1>
       <meter ng-show="vm.participant.buttonCode" min="0" max="{{ vm.participant.goal }}" low="{{ vm.participant.goal * 0.25 }}" high="{{ vm.participant.goal * 0.75 }}" optimum="{{ vm.participant.goal }}" value="{{ vm.participant.moneyRaised }}">
       </meter>
