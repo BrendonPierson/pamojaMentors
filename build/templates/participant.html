@@ -1,11 +1,11 @@
 <div class="grid-frame">
-  <div class="participant grid-block small-up-1 medium-up-2 align-spaced">
+  <div class="participant grid-block vertical medium-horizontal">
     <div class="grid-content shrink">
       <img ng-src={{vm.participant.imageUrl}} alt="Participant photo">
       <div ng-show="vm.participant.buttonCode">
         <div id="574419139163399953" align="center" style="width: 100%; overflow-y: hidden;" class="wcustomhtml">
           <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-          <!-- <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top"> -->
+            <!-- <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top"> -->
             <input type="hidden" name="cmd" value="_s-xclick">
             <input type="hidden" name="hosted_button_id" value="{{ vm.participant.buttonCode }}">
             <!-- <input type="hidden" name="hosted_button_id" value="{{ vm.participant.sandboxButCode }}"> -->
@@ -17,19 +17,15 @@
     </div>
     <div class="grid-content align-center">
       <h1>{{ vm.participant.fName }} {{ vm.participant.lName}} </h1>
-      <meter ng-show="vm.participant.buttonCode" 
-              min="0" 
-              max="{{ vm.participant.goal }}" 
-              low="{{ vm.participant.goal * 0.25 }}" 
-              high="{{ vm.participant.goal * 0.75 }}" 
-              optimum="{{ vm.participant.goal }}" 
-              value="{{ vm.participant.moneyRaised }}">
+      <meter ng-show="vm.participant.buttonCode" min="0" max="{{ vm.participant.goal }}" low="{{ vm.participant.goal * 0.25 }}" high="{{ vm.participant.goal * 0.75 }}" optimum="{{ vm.participant.goal }}" value="{{ vm.participant.moneyRaised }}">
       </meter>
       <p>School: {{ vm.participant.school}}</p>
       <p>Sport: {{ vm.participant.sport}}</p>
       <p>Raised: {{ vm.participant.moneyRaised | currency : symbol : fractionSize }}</p>
       <p>Goal: {{ vm.participant.goal | currency : symbol : fractionSize }}</p>
       <p>Description: {{ vm.participant.description}}</p>
+      <br>
+      <br>
       <br>
       <br>
       <br>
