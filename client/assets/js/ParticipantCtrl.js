@@ -13,17 +13,20 @@
 
     $http.get(FBREF + "/participants/" + $stateParams.id + '/.json').then(success, failure);
 
-    function success (response) {
+    function success(response) {
       vm.participant = response.data;
     }
 
-    function failure (err) {
+    function failure(err) {
       console.log(err);
     }
 
     vm.goToPaypal = function() {
-      foundationApi.publish('main-notifications', { title: 'Redirecting', content:  'You will be taken to paypal to complete the donation.', autoclose: '3000' });
+      foundationApi.publish('main-notifications', {
+        title: 'Redirecting',
+        content: 'You will be taken to paypal to complete the donation.',
+        autoclose: '3000'
+      });
     }
-
   }
 })();
