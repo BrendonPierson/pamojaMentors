@@ -49,6 +49,12 @@
       controller: 'ParticipantsCtrl',
       controllerAs: 'vm'
     })
+    .state('gallery', {
+      url: "/gallery",
+      templateUrl: "templates/gallery.html",
+      controller: 'GalleryCtrl',
+      controllerAs: 'vm'
+    })
     .state('participant', {
       url: "/participant/:id",
       templateUrl: "templates/participant.html",

@@ -9,7 +9,7 @@
     'foundation',
     'foundation.dynamicRouting',
     'foundation.dynamicRouting.animations',
-
+    
     "firebase"
   ])
     .run(run);

@@ -1,13 +1,28 @@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.0/photoswipe.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.0/photoswipe-ui-default.min.js"></script>
 <div class="grid-frame">
-  <div id="image-frame" class="grid-block">
-
-    <div ng-click="vm.prev()" class="grid-block gallery-controls float-left">
-      Previous
+  <div class="grid-block">
+    <div id="focusImg" class="show-for-medium grid-content medium-10">
     </div>
-
-    <div ng-click="vm.prev()" class="grid-block gallery-controls float-right">
-      Next
+    <div id="thumbs" class="grid-content">
+      <ul class="thumbnails no-bullet">
+        <li ng-repeat="photo in vm.photos">
+          <a ng-click="vm.focusImg(photo.link)">
+            <img ng-src="{{ photo.thumb }}">
+          </a>
+        </li>
+      </ul>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
     </div>
-
   </div>
 </div>
+
+<md-option ng-repeat="person in vm.users" value="{{ person.uid }}">
+            {{ person.userName }}
+          </md-option>
+        </md-select>
